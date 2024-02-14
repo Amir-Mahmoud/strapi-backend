@@ -17,7 +17,7 @@ phases:
     commands:
       - rm -rf node_modules
       # copy the contents of /build to S3
-      - aws s3 cp --recursive --acl public-read ./dist s3://strapidemo-admin/ 
+      - aws s3 cp --recursive --acl public-read ./dist/build s3://strapidemo-admin/ 
 
       # set the cache-control headers for service-worker.js to prevent
       # browser caching
@@ -34,8 +34,8 @@ phases:
       - >
         aws s3 cp --acl public-read 
         --cache-control="max-age=0, no-cache, no-store, must-revalidate" 
-        ./dist/index.html s3://strapidemo-admin/
+        ./dist/build/index.html s3://strapidemo-admin/
 artifacts:
   files:
     - '**/*'
-  base-directory: dist
+  base-directory: dist/build
