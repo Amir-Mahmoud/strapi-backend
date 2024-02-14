@@ -16,7 +16,26 @@ phases:
   post_build:
     commands:
       - rm -rf node_modules
+      # copy the contents of /build to S3
+      - aws s3 cp --recursive --acl public-read ./build s3://strapidemo-admin/ 
 
+      # set the cache-control headers for service-worker.js to prevent
+      # browser caching
+      # SKIP FOR NOW !!!!!!
+      # -------------------------------
+      # - >
+      #  aws s3 cp --acl public-read 
+      #  --cache-control="max-age=0, no-cache, no-store, must-revalidate" 
+      #  ./build/service-worker.js s3://apolloclientapp/
+      # --------------------------------
+
+      # set the cache-control headers for index.html to prevent
+      # browser caching
+      - >
+        aws s3 cp --acl public-read 
+        --cache-control="max-age=0, no-cache, no-store, must-revalidate" 
+        ./build/index.html s3://strapidemo-admin/
 artifacts:
   files:
     - '**/*'
+  base-directory: build
