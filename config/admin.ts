@@ -1,5 +1,5 @@
 export default ({ env }) => ({
-  url: "/",
+  url: "http://strapidemo-admin.s3-website-us-east-1.amazonaws.com",
   serveAdminPanel: env.bool('SERVE_ADMIN', false),
   auth: {
     secret: env('ADMIN_JWT_SECRET'),
