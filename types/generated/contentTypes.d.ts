@@ -881,6 +881,38 @@ export interface ApiTagTag extends Schema.CollectionType {
   };
 }
 
+export interface ApiVariantVariant extends Schema.CollectionType {
+  collectionName: 'variants';
+  info: {
+    singularName: 'variant';
+    pluralName: 'variants';
+    displayName: 'Variant';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Title: Attribute.String;
+    Unit: Attribute.String;
+    Description: Attribute.String;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::variant.variant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::variant.variant',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -902,6 +934,7 @@ declare module '@strapi/types' {
       'api::category.category': ApiCategoryCategory;
       'api::product.product': ApiProductProduct;
       'api::tag.tag': ApiTagTag;
+      'api::variant.variant': ApiVariantVariant;
     }
   }
 }
